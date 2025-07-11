@@ -12,8 +12,7 @@ const dbURI = process.env.MONGODB_URI || "mongodb://localhost:27017/todo";
 const port = process.env.PORT || 4000;
 
 mongoose.connect(dbURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+    useNewUrlParser: true
 }).then(() => {
     console.log("Connected to MongoDB successfully!");
 }).catch((err) => {
