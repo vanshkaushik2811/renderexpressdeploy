@@ -7,7 +7,11 @@ app.set("view engine","ejs");
 app.use(express.static('public'));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
-mongoose.connect("mongodb://localhost:27017/todo", {
+
+const dbURI = process.env.MONGODB_URI || "mongodb://localhost:27017/todo";
+const port = process.env.PORT || 4000;
+
+mongoose.connect(dbURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
@@ -120,8 +124,8 @@ app.post("/clear-completed", async function(req, res) {
     res.redirect("/");
 });
 
-app.listen(4000, function() {
-    console.log("Server Started on port 4000");
+app.listen(port, function() {
+    console.log(`Server Started on port ${port}`);
     console.log("MongoDB integration active");
 });
 
