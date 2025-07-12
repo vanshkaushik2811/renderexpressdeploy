@@ -128,4 +128,15 @@ app.listen(port, function() {
     console.log(`Server Started on port ${port}`);
     console.log("MongoDB integration active");
 });
+mongoose.set("strictQuery", false);
+mongoose.connect(dbURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => {
+    console.log("Connected to MongoDB successfully!");
+})
+.catch((err) => {
+    console.log("MongoDB connection error:", err);
+});
 
