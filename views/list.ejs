@@ -75,7 +75,7 @@
                             <button class="edit-btn" data-id="<%= todos[i].id %>" data-text="<%= todos[i].text %>" data-priority="<%= todos[i].priority %>">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <form action="/delete/<%= todos[i].id %>" method="post" class="delete-form" onsubmit="return confirmDelete()">
+                            <form class="delete-form" data-id="<%= todos[i].id %>" onsubmit="return false;">
                                 <button type="submit" class="delete-btn">
                                     <i class="fas fa-trash"></i>
                                 </button>
@@ -93,7 +93,7 @@
                     <h3>Edit Task</h3>
                     <span class="close" onclick="closeEditModal()">&times;</span>
                 </div>
-                <form id="editForm" method="post">
+                <form id="editForm" data-id="" onsubmit="return false;">
                     <div class="input-group">
                         <input type="text" id="editText" name="newText" placeholder="Edit task..." required>
                         <select id="editPriority" name="newPriority" class="priority-select">

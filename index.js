@@ -70,21 +70,9 @@ app.post("/add", async function(req, res) {
     res.redirect("/");
 });
 
-app.post("/delete/:id", async function(req, res) {
-    try {
-        const todoId = req.params.id;
-        await Todo.findByIdAndDelete(todoId);
-        console.log("Todo deleted successfully");
-    } catch (err) {
-        console.log("Error deleting todo:", err);
-    }
-    res.redirect("/");
-});
-
-app.post("/edit/:id", async function(req, res) {
+app.put("/edit/:id", async function(req, res) {
     var newText = req.body.newText;
     var newPriority = req.body.newPriority;
-    
     if (newText && newText.trim() !== "") {
         try {
             const todoId = req.params.id;
@@ -93,11 +81,25 @@ app.post("/edit/:id", async function(req, res) {
                 priority: newPriority
             });
             console.log("Todo updated successfully");
+            return res.status(200).json({ success: true });
         } catch (err) {
             console.log("Error updating todo:", err);
+            return res.status(500).json({ success: false });
         }
     }
-    res.redirect("/");
+    return res.status(400).json({ success: false });
+});
+
+app.delete("/delete/:id", async function(req, res) {
+    try {
+        const todoId = req.params.id;
+        await Todo.findByIdAndDelete(todoId);
+        console.log("Todo deleted successfully");
+        return res.status(200).json({ success: true });
+    } catch (err) {
+        console.log("Error deleting todo:", err);
+        return res.status(500).json({ success: false });
+    }
 });
 
 app.post("/toggle/:id", async function(req, res) {
@@ -139,4 +141,5 @@ mongoose.connect(dbURI, {
 .catch((err) => {
     console.log("MongoDB connection error:", err);
 });
+
 

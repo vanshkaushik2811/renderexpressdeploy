@@ -68,13 +68,27 @@ window.addEventListener('click', function(e) {
     }
 });
 editForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const todoId = editForm.getAttribute('data-id');
     const inputValue = editText.value.trim();
+    const priorityValue = editPriority.value;
     if (!inputValue) {
-        e.preventDefault();
         alert('Please enter a task before saving!');
         editText.focus();
         return false;
     }
+    fetch(`/edit/${todoId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newText: inputValue, newPriority: priorityValue })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            closeEditModal();
+            location.reload();
+        }
+    });
 });
 
 function confirmDelete() {
@@ -84,6 +98,21 @@ function confirmDelete() {
 document.addEventListener('change', function(e) {
     if (e.target.type === 'checkbox' && e.target.closest('.toggle-form')) {
         e.target.closest('.toggle-form').submit();
+    }
+});
+
+document.addEventListener('submit', function(e) {
+    if (e.target.classList.contains('delete-form')) {
+        e.preventDefault();
+        const todoId = e.target.getAttribute('data-id');
+        if (confirmDelete()) {
+            fetch(`/delete/${todoId}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(res => res.json())
+            .then(data => { if (data.success) location.reload(); });
+        }
     }
 });
 
