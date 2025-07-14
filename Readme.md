@@ -6,7 +6,7 @@ A full-featured TODO List application built with Node.js, Express, MongoDB, and 
 
 ## 🚀 Live Site
 
-🔗 [Visit the App on Render](https://your-render-url.onrender.com)
+🔗 [Visit the App on Render](https://myassignmentfortutedude.onrender.com)
 
 ---
 
@@ -36,7 +36,7 @@ A full-featured TODO List application built with Node.js, Express, MongoDB, and 
 ## 🚀 How to Run Locally
 
 ```bash
-git clone https://github.com/yourusername/todoproject.git
+git clone https://github.com/vanshkaushik2811/todoproject.git
 cd todoproject
 npm install
 npm start
